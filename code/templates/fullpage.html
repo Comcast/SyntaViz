@@ -1,0 +1,111 @@
+<!--Author: M Iftekhar Tanveer (mtanve200)-->
+<html>
+    <body>
+        <h1><a href="{{url_for('both')}}">SyntaViz: Syntax-driven Query Visualizer</a></h1>
+        Total {{total_count}} queries loaded ({{uniq_count}} unique)<br/>
+        <div id="container" style="width:100%;">
+            <!--This is the left pane containing the clusters-->
+            <div id="leftpane" style="width:34%;float:left;">
+                <!-- Left pane header and the navigation buttons -->
+                <div id="leftpane_nav" style="width:100%;">
+                    <h3 align="center">Hierarchical Dependency Clusters</h3>
+                    <div id="current_cluster">
+                        <strong>Current Cluster:</strong><br/>{{currentkey|safe}}
+                    </div>
+                    <div id="left_prev" style="width:30%;float:left;">
+                        {{left_prev_code|safe}}
+                    </div>
+                    <div id="left_next" style="width:30%;float:right;text-align:right;">
+                        {{left_next_code|safe}}
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <!-- Container for the clusters -->
+                <div id = "keycontainer">
+                <table style="width:100%;font-size:85%;">
+                <!-- Table Header -->
+                    <tr>
+                        <th align="left">idx</th>
+                        <th align="left">Cluster</th>
+                        <th align="left"><a href="{{header_unique_link|safe}}">Unique</a></th>
+                        <th align="left"><a href="{{header_total_link|safe}}">Total</a></th>
+                    </tr>
+                    <!-- Rows of the table -->
+                    {% for i,count,akey,encodedkey,nucount,uniq_perc,nonuniq_perc in allkeys %}
+                    <tr>
+                        <td>{{i}}</td>
+                        <td><a href="{{encodedkey}}">{{akey}}</a></td>
+                        <td>{{count}} ({{uniq_perc}}%)</td>
+                        <td>{{nucount}} ({{nonuniq_perc}}%)</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                </div>
+            </div>
+
+            {% if allqueries is defined %}
+            <!--This is the right pane containing the queries-->
+            <div id="rightpane" style="width:64%;float:right;">
+                <!--Statistics panel-->
+                <div id="cluster_stats" style="width:40%;vertical-align:top;float:left;">
+                    <h3 align="left">Current Cluster Statistics:</h3>
+                    <strong align="left">The current cluster contains:</strong><br/>
+                    {% set unq_cnt,tot_cnt, unq_nondep,tot_nondep,qid_to_subclust = clust_stats %}
+                    {{tot_cnt}} queries in total <br/>
+                    {{unq_cnt}} unique queries <br/>
+                    <strong align="left">Number of queries not belonging to any subcluster:</strong><br/>
+                    {{unq_nondep}} unique queries<br/>
+                    {{tot_nondep}} total queries<br/>
+                </div>
+                <!--The plot-->
+                {% if image_src is defined %}
+                <div id="visualizer" style="width:60%;vertical-align:top;float:right;">
+                    <h3 align="center">Histogram of Actions in the cluster</h3>
+                    {{image_src|safe}}
+                </div>
+                {% endif %}
+                <div style="clear:both;"></div>
+                <!--Navigation Buttons -->
+                <div id="rightpane_nav" style="width:100%;">
+                    <div id="right_prev" style="width:30%;float:left;">
+                        {{right_prev_code|safe}}
+                    </div>
+                    <div id="right_next" style="width:30%;float:right;text-align:right;">
+                        {{right_next_code|safe}}
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <!-- Query List -->
+                <div id = "querycontainer" style="width:100%;">
+                    <table style="width:100%;font-size:85%;">
+                    <!-- Table Header -->
+                    <tr>
+                        <th align="left">idx</th>
+                        <th align="left">Query</th>
+                        <th align="left">Action</th>
+                        <th align="left">Subclusters</th>
+                        <th align="left"><a href="{{header_freq_link|safe}}">Frequency(%ofTotal)</a></th>
+                        <th align="left"><a href="{{header_qid_link|safe}}">QID</a></th>
+                    </tr>
+                    <!-- Rows of the table -->
+                    {% for i,qid,aquery,action,qfreq,qfreq_perc in allqueries %}
+                    <tr>
+                        <td>{{i}}</td>
+                        <td>{{aquery}}</td>
+                        <td>{{action}}</td>
+                        <td>{% for asubclust in qid_to_subclust[qid] %}
+                            {{asubclust}}, 
+                            {% endfor %}
+                        </td>
+                        <td>{{qfreq}} ({{qfreq_perc}}%)</td>
+                        <td>{{qid}}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+            <div style="clear:both;"></div>
+        </div>
+    </body>
+</html>

@@ -67,8 +67,8 @@ cd /opt/tensorflow/syntaxnet
 mkdir $DATADIR/parsed
 python -u $CODEDIR/parse_query.py $DATADIR/queries $DATADIR/parsed/part >& parse-queries.log 2>&1 &
 cat $DATADIR/parsed/part* > $DATADIR/parsed.txt
-exit
 ```
+At this point, `$DATADIR/parsed.txt` should have the same number of lines as `$DATADIR/queries`.
 
 #### 3. Start SyntaViz server
 ```

@@ -50,7 +50,7 @@ PORT=5678
 `docker run --rm --name syntaviz-parser -it -e CODEDIR=$CODEDIR -e DATADIR=$DATADIR -v $CODEDIR:$CODEDIR -v $DATADIR:$DATADIR -p 9030:8888 tensorflow/syntaxnet /bin/bash`
 
 #### 1. Prepare data in the following format
- - cx.queries: A text file with each line representing one query in following format: `ID\tquery\tlogProb\tlogFreq\tCount`
+ - queries: A text file with each line representing one query in following format: `ID\tquery\tlogProb\tlogFreq\tCount`
 
 e.g.,
 
@@ -59,19 +59,19 @@ e.g.,
 1       please email me an alarm certificate showing that our services are current and active. 1.0     1.0     1
 2       cant send outgoing email        1.0     1.0     1
 ```
- - cx-actions.pkl: A pkl file that contains a single mapping (dict object) with `key=query value=action`
+ - actions.pkl: A pkl file that contains a single mapping (dict object) with `key=query value=action`
 
 #### 2. Parse queries
 ```
 cd /opt/tensorflow/syntaxnet
-mkdir $DATADIR/cx-parsed
-python -u $CODEDIR/parse_query.py $DATADIR/cx.queries $DATADIR/cx-parsed/part >& a.log 2>&1 &
-cat $DATADIR/cx-parsed/part* > $DATADIR/cx-parsed.txt
+mkdir $DATADIR/parsed
+python -u $CODEDIR/parse_query.py $DATADIR/queries $DATADIR/parsed/part >& parse-queries.log 2>&1 &
+cat $DATADIR/parsed/part* > $DATADIR/parsed.txt
 exit
 ```
 
 #### 3. Start SyntaViz server
 ```
 cd $CODEDIR
-python ./syntaviz.py $DATADIR/cx.queries $DATADIR/cx-parsed.txt $DATADIR/cx-actions.pkl $PORT
+python ./syntaviz.py $DATADIR/queries $DATADIR/parsed.txt $DATADIR/actions.pkl $PORT
 ```

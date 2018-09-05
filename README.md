@@ -40,14 +40,21 @@ Running SyntaViz
 Define variables:
 ```
 DATADIR=/data/syntaviz
-CODEDIR=/code/SyntaViz/code
+CODEDIR=/code/SyntaViz
 PORT=5678
 ```
 
 ### Running SyntaViz on a corpus of queries
 
-#### 0. Start a container with syntaxnet:
+#### 0. Set up environment
+Start container with SyntaxNet:
 `docker run --rm --name syntaviz-parser -it -e CODEDIR=$CODEDIR -e DATADIR=$DATADIR -v $CODEDIR:$CODEDIR -v $DATADIR:$DATADIR -p 9030:8888 tensorflow/syntaxnet /bin/bash`
+
+Install Syntaviz:
+```
+pip install --upgrade setuptools
+python setup.py install
+```
 
 #### 1. Prepare data in the following format
  - queries: A text file with each line representing one query in following format: `ID\tquery\tlogProb\tlogFreq\tCount`
@@ -65,13 +72,12 @@ e.g.,
 ```
 cd /opt/tensorflow/syntaxnet
 mkdir $DATADIR/parsed
-python -u $CODEDIR/parse_query.py $DATADIR/queries $DATADIR/parsed/part >& parse-queries.log 2>&1 &
+python -m syntaviz.parse_query $DATADIR/queries $DATADIR/parsed/part >& parse-queries.log 2>&1 &
 cat $DATADIR/parsed/part* > $DATADIR/parsed.txt
 ```
 At this point, `$DATADIR/parsed.txt` should have the same number of lines as `$DATADIR/queries`.
 
 #### 3. Start SyntaViz server
 ```
-cd $CODEDIR
-python ./syntaviz.py $DATADIR/queries $DATADIR/parsed.txt $DATADIR/actions.pkl $PORT
+python -m syntaviz.syntaviz $DATADIR/queries $DATADIR/parsed.txt $DATADIR/actions.pkl $PORT
 ```

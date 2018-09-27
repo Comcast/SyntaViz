@@ -2,7 +2,7 @@ SyntaViz is a visualization interface specifically designed for analyzing a larg
 
 For more details, see our demo paper "SyntaViz: Visualizing Voice Queries through a Syntax-Driven Hierarchical Ontology" at EMNLP 2018: http://emnlp2018.org/program/accepted/demos
 
-![Screenshot](https://raw.githubusercontent.com/Comcast/SyntaViz/master/screenshot.pdf)
+![Screenshot](https://raw.githubusercontent.com/Comcast/SyntaViz/master/screenshot.png)
 
 Outline of the code
 ===================

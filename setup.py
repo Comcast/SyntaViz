@@ -22,7 +22,7 @@ setup(
 
     python_requires='>=2.7, <3',
 
-    install_requires=["flask==0.12.3",
+    install_requires=["flask==1.0",
                       "matplotlib==2.0.2",
                       "numpy==1.8.2",
                       "scikit-learn==0.18.2",

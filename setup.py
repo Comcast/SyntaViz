@@ -27,7 +27,7 @@ setup(
                       "numpy==1.8.2",
                       "scikit-learn==0.18.2",
                       "scipy==0.19.1",
-                      "ipython==5.1.0",
+                      "ipython==7.16.3",
                       "bokeh==0.12.5",
                       "nltk==3.4.5",
                       "pandas==0.20.2",

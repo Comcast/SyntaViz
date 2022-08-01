@@ -1,6 +1,6 @@
 SyntaViz is a visualization interface specifically designed for analyzing a large number of natural-language queries. SyntaViz provides a platform for browsing the ontology of user queries from a syntax-driven perspective, providing quick access to high-impact failure points of the existing intent understanding system and evidence for data-driven decisions in the development cycle.
 
-For more details, see our demo paper "SyntaViz: Visualizing Voice Queries through a Syntax-Driven Hierarchical Ontology" at EMNLP 2018: http://emnlp2018.org/program/accepted/demos
+For more details, see our demo paper "SyntaViz: Visualizing Voice Queries through a Syntax-Driven Hierarchical Ontology" at EMNLP 2018: https://aclanthology.org/volumes/D18-2/
 
 ![Screenshot](https://raw.githubusercontent.com/Comcast/SyntaViz/master/screenshot.png)
 

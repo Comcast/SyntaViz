@@ -24,7 +24,7 @@ setup(
 
     install_requires=["flask==1.1.1",
                       "matplotlib==2.0.2",
-                      "numpy==1.8.2",
+                      "numpy==1.22.0",
                       "scikit-learn==0.18.2",
                       "scipy==0.19.1",
                       "ipython==7.16.3",

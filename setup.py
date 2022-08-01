@@ -29,7 +29,7 @@ setup(
                       "scipy==0.19.1",
                       "ipython==7.16.3",
                       "bokeh==0.12.5",
-                      "nltk==3.4.5",
+                      "nltk==3.6.6",
                       "pandas==0.20.2",
                       "torch"],
     setup_requires=['pytest-runner'],
